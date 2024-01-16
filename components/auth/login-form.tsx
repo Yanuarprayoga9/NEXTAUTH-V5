@@ -37,10 +37,12 @@ export const LoginForm = () => {
     startTransition(() => {
       login(values)
         .then((data) => {
-          // ... handle data if needed
+          setSuccess(data.success)
+          setError(data.error)
         })
         .catch((error) => {
           // ... handle errors here
+          setError(error.message)
         });
     });
   };
@@ -89,8 +91,8 @@ export const LoginForm = () => {
               </FormItem>
             )}
           ></FormField>
-          <FormError message="" />
-          <FormSuccess message="" />
+          <FormError message={error} />
+          <FormSuccess message={success} />
           <Button disabled={isPending} className="w-full" type="submit">
             Login
           </Button>
