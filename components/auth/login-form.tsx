@@ -34,15 +34,20 @@ export const LoginForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+    setError("");
+    setSuccess("");
     startTransition(() => {
       login(values)
         .then((data) => {
-          setSuccess(data.success)
-          setError(data.error)
+         
+          if (data?.error) {
+            setError(data.error);
+            form.reset();
+          }
         })
         .catch((error) => {
           // ... handle errors here
-          setError(error.message)
+          setError(error.message);
         });
     });
   };
