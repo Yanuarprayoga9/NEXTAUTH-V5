@@ -41,3 +41,6 @@ this project using shadcn,prisma,zod,server actions,usehookfrom
 running prisma
 npm i -D prisma
 npm i @prisma/client
+npx prisma init
+npx prisma generate (run model)
+npx prisma db push
