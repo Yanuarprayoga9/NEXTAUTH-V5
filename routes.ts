@@ -10,7 +10,7 @@ export const publicRoutes:string[] = ["/"];
  * An array  of routes that are use fpr authentication 
  * Theseroutes do no require authentication
  * @type {string[]}
- */
+ */ 
 
 export const authRoutes: string[] = ["/auth/login", "/auth/register"];
 
