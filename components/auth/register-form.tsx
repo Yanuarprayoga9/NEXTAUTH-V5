@@ -19,6 +19,7 @@ import { useForm } from "react-hook-form";
 import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
 import { register } from "@/actions/register";
+
 export const RegisterForm = () => {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
@@ -27,7 +28,6 @@ export const RegisterForm = () => {
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
-      name: "",
       email: "",
       password: "",
     },
@@ -37,84 +37,86 @@ export const RegisterForm = () => {
     startTransition(() => {
       register(values)
         .then((data) => {
-          setSuccess(data.success);
-          setError(data.error);
+          setSuccess(data.success)
+          setError(data.error)
         })
         .catch((error) => {
-          setError(error.message);
+          // ... handle errors here
+          setError(error.message)
         });
     });
   };
-  return (
-    <CardWrapper
-      headerLabel="Register"
-      backButtonLabel=" have an account?"
-      backButtonHref="/auth/login"
-      showSocial
-    >
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>name</FormLabel>
-                <FormControl>
-                  <Input
-                    className="bg-white"
-                    {...field}
-                    placeholder="....."
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          ></FormField>
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input
-                    className="bg-white"
-                    {...field}
-                    placeholder="john.doe@example.com"
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          ></FormField>
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>password</FormLabel>
-                <FormControl>
-                  <Input
-                    disabled={isPending}
-                    className="bg-white"
-                    {...field}
-                    placeholder="********"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          ></FormField>
-          <FormError message={error} />
-          <FormSuccess message={success} />
-          <Button disabled={isPending} className="w-full" type="submit">
-            Login
-          </Button>
-        </form>
-      </Form>
-    </CardWrapper>
-  );
+  
+return (
+  <CardWrapper
+    headerLabel="Register"
+    backButtonLabel=" have an account?"
+    backButtonHref="/auth/login"
+    showSocial
+  >
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>name</FormLabel>
+              <FormControl>
+                <Input
+                  className="bg-white"
+                  {...field}
+                  placeholder="....."
+                  disabled={isPending}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        ></FormField>
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input
+                  className="bg-white"
+                  {...field}
+                  placeholder="john.doe@example.com"
+                  disabled={isPending}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        ></FormField>
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>password</FormLabel>
+              <FormControl>
+                <Input
+                  disabled={isPending}
+                  className="bg-white"
+                  {...field}
+                  placeholder="********"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        ></FormField>
+        <FormError message={error} />
+        <FormSuccess message={success} />
+        <Button disabled={isPending} className="w-full" type="submit">
+          Create Account
+        </Button>
+      </form>
+    </Form>
+  </CardWrapper>
+);
 };
