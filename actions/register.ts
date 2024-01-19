@@ -25,7 +25,6 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
         password:hashedPassword
       }
     })
-    console.log(validatedFields.data)
     return {success:"success to create account"}
 
 };
