@@ -1,1 +1,1 @@
-console.log("test mail")
+console.log("test mail");
