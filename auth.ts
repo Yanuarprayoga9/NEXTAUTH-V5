@@ -29,7 +29,7 @@ export const {
         session.user.id = token.sub;
       }
       if (session.user && user) {
-        session.user.role = user?.role;
+        session.user.role = user?.role
       }
 
       return session;
