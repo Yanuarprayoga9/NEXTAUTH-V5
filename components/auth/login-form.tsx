@@ -19,8 +19,16 @@ import { useForm } from "react-hook-form";
 import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
 import { login } from "@/actions/login";
+import { useSearchParams } from "next/navigation";
 
 export const LoginForm = () => {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
+  const urlError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "Email already in use with different provider!"
+      : "";
+
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
@@ -39,11 +47,9 @@ export const LoginForm = () => {
     startTransition(() => {
       login(values)
         .then((data) => {
-         
-       
           if (data?.error) {
             setError(data.error);
-            form.reset();
+            // form.reset();
           }
         })
         .catch((error) => {
@@ -97,7 +103,7 @@ export const LoginForm = () => {
               </FormItem>
             )}
           ></FormField>
-          <FormError message={error} />
+          <FormError message={error || urlError} />
           <FormSuccess message={success} />
           <Button disabled={isPending} className="w-full" type="submit">
             Login
