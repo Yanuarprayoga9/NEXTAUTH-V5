@@ -6,6 +6,7 @@ import { DEFAULT_ISLOGIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
 import { getUserByEmail } from "@/data/user";
 import { generateVerificationToken } from "@/lib/tokens";
+import { sendEmailVerifictionToken } from "@/lib/mail";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validatedfields = LoginSchema.safeParse(values);
@@ -18,7 +19,6 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
    * return error invalid credential
    */
   const existingUser = await getUserByEmail(email);
-  console.log({existingUser})
   if (!existingUser || !existingUser.email || !existingUser.password) {
     return { error: "invalid credentials" };
   }
@@ -29,9 +29,14 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
    */
 
   if (!existingUser.emailVerified) {
-    await generateVerificationToken(
+    const verificationToken = await generateVerificationToken(
       existingUser.email
     );
+    await sendEmailVerifictionToken(
+      verificationToken.email,
+      verificationToken.token
+    );
+
     return { success: "Confirmation email sent" };
   }
 
