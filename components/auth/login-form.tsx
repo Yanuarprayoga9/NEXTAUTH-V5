@@ -51,6 +51,10 @@ export const LoginForm = () => {
             setError(data.error);
             // form.reset();
           }
+          if (data?.success) {
+            setSuccess(data.success);
+            // form.reset();
+          }
         })
         .catch((error) => {
           // ... handle errors here
