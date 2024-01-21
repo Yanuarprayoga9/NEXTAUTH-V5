@@ -48,10 +48,14 @@ git https://github.com/Yanuarprayoga9/NEXTAUTH-V5.git
 npm i
 ```
 
-### Setup .env file
+### Setup .env file 
+```shell
+cp .env.exmaple .env 
+```
 
 
 ```js
+// get from https://console.neon.tech/
 DATABASE_URL=
 DIRECT_URL=
 
