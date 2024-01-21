@@ -21,11 +21,13 @@ export const generateVerificationToken = async (email: string) => {
     });
   }
 
-  await db.verificationToken.create({
+  const verficationToken = await db.verificationToken.create({
     data: {
       email,
       token,
       expires,
-    },
+    }
   });
+
+  return verficationToken;
 };
