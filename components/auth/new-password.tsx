@@ -51,7 +51,7 @@ const NewPassword = () => {
         })
         .catch((error) => {
           // ... handle errors here
-          setError(error.message);
+          setError("Something Wrong");
         });
     });
   };
