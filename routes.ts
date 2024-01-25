@@ -12,7 +12,7 @@ export const publicRoutes:string[] = ["/","/auth/new-verification","/auth/reset"
  * @type {string[]}
  */ 
 
-export const authRoutes: string[] = ["/auth/login", "/auth/register","/auth/error","/auth/reset"];
+export const authRoutes: string[] = ["/auth/login", "/auth/register","/auth/error","/auth/reset","/auth/new-password"];
 
 
 /**
