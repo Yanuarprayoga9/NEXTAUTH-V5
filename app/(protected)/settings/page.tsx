@@ -1,7 +1,10 @@
 import { auth, signOut } from "@/auth"
+import { currentRole } from "@/lib/auth"
 
 const page = async () => {
     const session = await auth()
+    const role = await currentRole()
+    console.log(role)
   return (
     <div>
       {JSON.stringify(session)}
