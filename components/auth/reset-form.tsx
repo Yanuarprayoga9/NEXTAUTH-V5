@@ -14,50 +14,45 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { LoginSchema } from "@/schemas";
+import {  ResetSchema } from "@/schemas";
 import { useForm } from "react-hook-form";
 import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
-import { login } from "@/actions/login";
+import { resetPasswordByEmail } from "@/actions/reset";
 
 export const ResetForm = () => {
-  
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
 
-  const form = useForm<z.infer<typeof LoginSchema>>({
-    resolver: zodResolver(LoginSchema),
+  const form = useForm<z.infer<typeof ResetSchema>>({
+    resolver: zodResolver(ResetSchema),
     defaultValues: {
       email: "",
-      password: "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+  const onSubmit = (values: z.infer<typeof ResetSchema>) => {
     setError("");
     setSuccess("");
     startTransition(() => {
-      login(values)
+      resetPasswordByEmail(values)
         .then((data) => {
           if (data?.error) {
             setError(data.error);
-            // form.reset();
           }
           if (data?.success) {
             setSuccess(data.success);
-            // form.reset();
           }
         })
         .catch((error) => {
-          // ... handle errors here
-          setError(error.message);
+          setError("Something Wrong")
         });
     });
   };
   return (
     <CardWrapper
-      headerLabel="Welcome Back"
+      headerLabel="Forgot password"
       backButtonLabel="Dont have an account?"
       backButtonHref="/auth/register"
     >
@@ -80,9 +75,7 @@ export const ResetForm = () => {
                 <FormMessage />
               </FormItem>
             )}
-          >
-            
-          </FormField>
+          ></FormField>
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button disabled={isPending} className="w-full" type="submit">
