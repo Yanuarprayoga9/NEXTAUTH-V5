@@ -4,7 +4,7 @@
  * @type {string[]}
  */
 
-export const publicRoutes:string[] = ["/"];
+export const publicRoutes:string[] = ["/","/auth/new-verification","/auth/reset"];
 
 /**
  * An array  of routes that are use fpr authentication 
@@ -12,7 +12,7 @@ export const publicRoutes:string[] = ["/"];
  * @type {string[]}
  */ 
 
-export const authRoutes: string[] = ["/auth/login", "/auth/register","/auth/error"];
+export const authRoutes: string[] = ["/auth/login", "/auth/register","/auth/error","/auth/reset"];
 
 
 /**

@@ -19,16 +19,9 @@ import { useForm } from "react-hook-form";
 import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
 import { login } from "@/actions/login";
-import { useSearchParams } from "next/navigation";
 
-export const LoginForm = () => {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl");
-  const urlError =
-    searchParams.get("error") === "OAuthAccountNotLinked"
-      ? "Email already in use with different provider!"
-      : "";
-
+export const ResetForm = () => {
+  
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
@@ -67,7 +60,6 @@ export const LoginForm = () => {
       headerLabel="Welcome Back"
       backButtonLabel="Dont have an account?"
       backButtonHref="/auth/register"
-      showSocial
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -88,34 +80,10 @@ export const LoginForm = () => {
                 <FormMessage />
               </FormItem>
             )}
-          ></FormField>
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>password</FormLabel>
-                <FormControl>
-                  <Input
-                    disabled={isPending}
-                    className="bg-white"
-                    {...field}
-                    placeholder="********"
-                  />
-                </FormControl>
-                <Button
-                  size="sm"
-                  variant="link"
-                  asChild
-                  className="px-0 font-normal"
-                >
-                  <Link href="/auth/reset">Forgot password?</Link>
-                </Button>
-                <FormMessage />
-              </FormItem>
-            )}
-          ></FormField>
-          <FormError message={error || urlError} />
+          >
+            
+          </FormField>
+          <FormError message={error} />
           <FormSuccess message={success} />
           <Button disabled={isPending} className="w-full" type="submit">
             Login
