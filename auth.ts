@@ -61,6 +61,12 @@ export const {
       return session;
     },
     async jwt({ token }) {
+      const user = await getUserById(token.sub as string);
+      if (user) {
+        token.role = user.role;
+        token.name = user.name;
+        token.isTwoFactorEnabled = user.isTwoFactorEnabled;
+      }
       return token;
     },
   },
