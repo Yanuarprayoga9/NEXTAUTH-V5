@@ -7,10 +7,10 @@ interface ProtectedLayoutProps {
 
 const ProtectedLayout = ({ children }: ProtectedLayoutProps) => {
   return (
-    <div className="h-full w-full flex flex-col gap-y-10 items-center justify-center ">
+    <div className="h-full w-full flex flex-col gap-y-10 items-center  ">
       <Navbar />
       {children}
-      <LogoutButton>Sign Out</LogoutButton>
+      <LogoutButton variant="default">Sign Out</LogoutButton>
     </div>
   );
 };
