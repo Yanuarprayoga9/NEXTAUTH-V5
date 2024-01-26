@@ -5,17 +5,18 @@ import { Button } from "../ui/button";
 
 interface LogoutButtonProps {
   children?: React.ReactNode;
+  variant?: "default" | "outline";
 };
 
 export const LogoutButton = ({
-  children
+  children,variant
 }: LogoutButtonProps) => {
   const onClick = () => {
     logout();
   };
 
   return (
-    <Button onClick={onClick} variant={"default"} className="cursor-pointer">
+    <Button onClick={onClick} variant={variant} className="cursor-pointer">
       {children}
     </Button>
   );
