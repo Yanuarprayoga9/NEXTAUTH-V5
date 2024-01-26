@@ -1,9 +1,9 @@
 "use client";
 import { logout } from "@/actions/logout";
-import { currentUser } from "@/lib/auth";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 const Settings = () => {
-  const user = currentUser();
+  const user = useCurrentUser();
   return (
     <div>
       {JSON.stringify(user)}
