@@ -14,9 +14,12 @@ const AdminPage = () => {
       .then((data) => {
         if (data.error) {
           toast.error(data.error);
+          console.log(data.error)
         }
 
         if (data.success) {
+          console.log(data.error)
+
           toast.success(data.success);
         }
       })
