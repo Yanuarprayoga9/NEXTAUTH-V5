@@ -1,14 +1,12 @@
+"use client";
 import { logout } from "@/actions/logout";
-import { auth, signOut } from "@/auth";
-import { currentRole } from "@/lib/auth";
+import { currentUser } from "@/lib/auth";
 
-const page = async () => {
-  const session = await auth();
-  const role = await currentRole();
-  console.log(role);
+const Settings = () => {
+  const user = currentUser();
   return (
     <div>
-      {JSON.stringify(session)}
+      {JSON.stringify(user)}
       <form action={logout}>
         <button type="submit">Sign Out</button>
       </form>
@@ -16,4 +14,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default Settings;
