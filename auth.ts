@@ -9,7 +9,7 @@ export const {
   handlers: { GET, POST },
   auth,
   signIn,
-  signOut,
+  signOut
 } = NextAuth({
   pages: {
     signIn: "/auth/login",
@@ -57,6 +57,12 @@ export const {
       if (session.user && user) {
         session.user.role = user?.role;
       }
+      if (user) {
+        session.user.role = user.role;
+        session.user.name = user.name;
+        session.user.isTwoFactorEnabled = user.isTwoFactorEnabled;
+      }
+      
 
       return session;
     },
@@ -67,7 +73,7 @@ export const {
         token.name = user.name;
         token.isTwoFactorEnabled = user.isTwoFactorEnabled;
       }
-      return token;
+     return token;
     },
   },
   adapter: PrismaAdapter(db),
