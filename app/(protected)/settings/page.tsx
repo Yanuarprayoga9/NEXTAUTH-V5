@@ -1,23 +1,32 @@
-"use client"
-import { setting } from "@/actions/settings"
-import { Button } from "@/components/ui/button"
-import { useTransition } from "react"
-import * as z from "zod"
+"use client";
+import { settings } from "@/actions/settings";
+import { Button } from "@/components/ui/button";
+import { useTransition } from "react";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { useSession } from "next-auth/react";
+
 const Settings = () => {
-const [isPending,setTransition] = useTransition()
-
-  const onclick =()=>{
-  setTransition( ()=>{
-    setting({name:"test"})
-  }
-  )
- }
+  const [isPending, setTransition] = useTransition();
+  const { update } = useSession();
+  const onCLick = () => {
+    setTransition(() => {
+      settings({ name: "testing", role: "ADMIN" }).then(() => {
+        update();
+      });
+    });
+  };
   return (
-    <div>
-      <h1>Settings</h1>
-      <Button variant="default"disabled={isPending} onClick={onclick}>test</Button>
-    </div>
-  )
-}
+    <Card className="w-[600px]">
+      <CardHeader>
+        <p className="text-2xl font-semibold text-center">⚙️ Settings</p>
+      </CardHeader>
+      <CardContent>
+        <Button onClick={onCLick} disabled={isPending}>
+          Update name
+        </Button>
+      </CardContent>
+    </Card>
+  );
+};
 
-export default Settings
+export default Settings;
