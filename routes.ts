@@ -1,31 +1,27 @@
 /**
- * An array  of routes that are accessible to the public
- * Theseroutes do no require authentication
+ * An array of routes that are accessible to the public
+ * These routes do not require authentication
  * @type {string[]}
  */
-
-export const publicRoutes:string[] = ["/","/auth/new-verification","/auth/reset"];
-
-/**
- * An array  of routes that are use fpr authentication 
- * Theseroutes do no require authentication
- * @type {string[]}
- */ 
-
-export const authRoutes: string[] = ["/auth/login", "/auth/register","/auth/error","/auth/reset","/auth/new-password"];
-
+export const publicRoutes = ["/", "/auth/new-verification"];
 
 /**
- * An array  of routes that are use fpr authentication 
- * Theseroutes that start with this prefix ares used for API authentication purposes 
+ * An array of routes that are used for authentication
+ * These routes will redirect logged in users to /settings
  * @type {string[]}
  */
-export const apiAuthPrefix: string = "/api/auth";
+export const authRoutes = [
+  "/auth/login",
+  "/auth/register",
+  "/auth/error",
+  "/auth/reset",
+  "/auth/new-password",
+];
 
-/*
-* The default redirect path after logging in | users is login
-*/
-
-export const DEFAULT_ISLOGIN_REDIRECT = "/settings"
-
-
+/**
+ * The prefix for API authentication routes
+ * Routes that start with this prefix are used for API authentication purposes
+ * @type {string}
+ */
+export const apiAuthPrefix = "/api/auth";
+export const DEFAULT_LOGIN_REDIRECT = "/settings";
