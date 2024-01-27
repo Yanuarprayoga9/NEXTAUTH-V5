@@ -1,20 +1,20 @@
 "use server";
-import * as z from "zod";
-
-import { SettingSchema } from "@/schemas";
+import { getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
-
-export const setting = async (values: z.infer<typeof SettingSchema>) => {
+import { SettingsSchema } from "@/schemas";
+import * as z from "zod";
+export const settings = async (values: z.infer<typeof SettingsSchema>) => {
   const user = await currentUser();
-  if (user) {
-    await db.user.update({
-      where: {
-        id: user.id,
-      },
-      data: {
-        name: values.name,
-      },
-    });
-  }
+  const dbUser = await getUserById(user?.id as string)
+  console.log({user})
+  console.log({dbUser})
+  await db.user.update({
+    where: {
+      id: user?.id,
+    },
+    data: {
+       ...values
+    },
+  });
 };
